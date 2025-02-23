@@ -72,5 +72,33 @@ class Inventory {
   // Testing the Inventory class
   const inventory = new Inventory();
   inventory.addProduct(prod1);
-  inventory.listProducts(); // Expected output: Product: Laptop, ID: 101, Price: $1200, Stock: 8
+  inventory.listProducts(); // Expected output: Product: Laptop, ID: 101, Price: $1200, Stock: 5
   
+
+
+// Task 4: Implementing Order Management
+
+class InventoryWithOrders extends Inventory {
+    constructor() {
+      super();
+      this.orders = [];
+    }
+  
+    placeOrder(orderId, product, quantity) {
+      if (product.stock >= quantity) {
+        const order = new Order(orderId, product, quantity);
+        this.orders.push(order);
+      } else {
+        console.log(`Not enough stock for product ${product.name}`);
+      }
+    }
+  
+    listOrders() {
+      this.orders.forEach(order => console.log(order.getOrderDetails()));
+    }
+  }
+  
+  // Test Task 4
+  inventory.placeOrder(601, prod1, 2);
+  inventory.listOrders(); // Expected: Order ID: 601, Product: Laptop, Quantity: 2, Total Price: $2400
+  console.log(prod1.getDetails()); // Expected: Product: Laptop, ID: 101, Price: $1200, Stock: 3
